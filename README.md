@@ -16,6 +16,8 @@ To Do List:
 ---
 
 * Fix the "Switch to TX" button for lib/fmRX.py
+  * "Switch to RX" button for lib/fmTX.py will follow afterwards
+* Add software amplification boost options for tx/rx modes
 * Add the WAV and Siren flows to hrt
 * Allow the user to change pitch and tone for the Siren flow
 * Design a low-cost easy-to-build amplifier solution to increase the reception and transmission range
