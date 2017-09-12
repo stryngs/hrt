@@ -29,7 +29,7 @@ class Control(object):
 
     def startTX(self):
         """Launch tx capabilities"""
-        action = self.tx.fmTX()
+        action = self.tx.fmTX(self)
         action.start()
         action.show()
         return action
@@ -37,7 +37,7 @@ class Control(object):
 
     def startRX(self):
         """Launch rx capabilities"""
-        action = self.rx.fmRX()
+        action = self.rx.fmRX(self)
         action.start()
         action.show()
         return action

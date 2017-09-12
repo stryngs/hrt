@@ -38,7 +38,8 @@ ctl = control.Control()
 
 class fmTX(gr.top_block, Qt.QWidget):
 
-    def __init__(self):
+    def __init__(self, control):
+        self.ctl = control
         gr.top_block.__init__(self, "Fmtx")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Fmtx")
@@ -158,6 +159,8 @@ class fmTX(gr.top_block, Qt.QWidget):
         return self.swap__
 
     def set_swap__(self, swap__):
+        self.ctl.kill(self)
+        self.ctl.startRX()
         self.swap__ = swap__
 
     def get_samp_rate(self):
@@ -187,7 +190,7 @@ class fmTX(gr.top_block, Qt.QWidget):
         return self.die__
 
     def set_die__(self, die__):
-        ctl.kill(self)
+        self.ctl.kill(self)
         self.die__ = die__
 
     def get_audio_samp_in(self):
