@@ -1,9 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import ctypes
 import sys
-from PyQt4 import Qt
+from PyQt5 import Qt
 from distutils.version import StrictVersion
 from gnuradio import analog, audio, blocks, eng_notation, filter, gr, qtgui
 from gnuradio.eng_option import eng_option
@@ -37,33 +37,33 @@ def choose(choice):
 
 def menu():
     """stdout for the menu"""
-    print '\n1 - Send'
-    print '2 - Receive'
-    print '3 - Reset'
-    print '4 - Quit\n'
+    print('\n1 - Send')
+    print('2 - Receive')
+    print('3 - Reset')
+    print('4 - Quit\n')
     return ''
 
 
 if __name__ == '__main__':
-    
+
     ## Bring in the pre-built GRC flow pre-reqs
     x11 = ctypes.cdll.LoadLibrary('libX11.so')
     x11.XInitThreads()
     if StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
-        Qt.QApplication.setGraphicsSystem(style)
+        # Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
     ## Keep track of user actions
     initLaunch = 0
     PROC = ''
-    
+
     ## Load our control module
     ctl = control.Control(rx = fmRX, tx = fmTX)
 
     ## Launcher
     while True:
-        uChoice = raw_input(menu())
+        uChoice = input(menu())
         if uChoice == '4':
             ctl.kill(PROC)
             break

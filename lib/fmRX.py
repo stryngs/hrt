@@ -14,9 +14,9 @@ if __name__ == '__main__':
             x11 = ctypes.cdll.LoadLibrary('libX11.so')
             x11.XInitThreads()
         except:
-            print "Warning: failed to XInitThreads()"
+            print("Warning: failed to XInitThreads()")
 
-from PyQt4 import Qt
+from PyQt5 import Qt
 from gnuradio import analog
 from gnuradio import audio
 from gnuradio import blocks
@@ -112,11 +112,11 @@ class fmRX(gr.top_block, Qt.QWidget):
         self.qtgui_sink_x_1.set_update_time(1.0/10)
         self._qtgui_sink_x_1_win = sip.wrapinstance(self.qtgui_sink_x_1.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_sink_x_1_win)
-        
+
         self.qtgui_sink_x_1.enable_rf_freq(True)
-        
-        
-          
+
+
+
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.osmosdr_source_0.set_sample_rate(samp_in)
         self.osmosdr_source_0.set_center_freq(freq, 0)
@@ -129,7 +129,7 @@ class fmRX(gr.top_block, Qt.QWidget):
         self.osmosdr_source_0.set_bb_gain(20, 0)
         self.osmosdr_source_0.set_antenna("", 0)
         self.osmosdr_source_0.set_bandwidth(0, 0)
-          
+
         self.low_pass_filter_0 = filter.fir_filter_ccf(int(10e6/chan_width), firdes.low_pass(
         	1, 10e6, 75e3, 25e3, firdes.WIN_HAMMING, 6.76))
         _die___push_button = Qt.QPushButton("GUI Kill")
@@ -150,15 +150,15 @@ class fmRX(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 1))    
-        self.connect((self.analog_wfm_rcv_0, 0), (self.audio_stop, 0))    
-        self.connect((self.audio_stop, 0), (self.blocks_multiply_const_vxx_0, 0))    
-        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.audio_sink_0, 0))    
-        self.connect((self.blocks_multiply_xx_0, 0), (self.low_pass_filter_0, 0))    
-        self.connect((self.low_pass_filter_0, 0), (self.rational_resampler_xxx_1, 0))    
-        self.connect((self.osmosdr_source_0, 0), (self.blocks_multiply_xx_0, 0))    
-        self.connect((self.osmosdr_source_0, 0), (self.qtgui_sink_x_1, 0))    
-        self.connect((self.rational_resampler_xxx_1, 0), (self.analog_wfm_rcv_0, 0))    
+        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 1))
+        self.connect((self.analog_wfm_rcv_0, 0), (self.audio_stop, 0))
+        self.connect((self.audio_stop, 0), (self.blocks_multiply_const_vxx_0, 0))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.audio_sink_0, 0))
+        self.connect((self.blocks_multiply_xx_0, 0), (self.low_pass_filter_0, 0))
+        self.connect((self.low_pass_filter_0, 0), (self.rational_resampler_xxx_1, 0))
+        self.connect((self.osmosdr_source_0, 0), (self.blocks_multiply_xx_0, 0))
+        self.connect((self.osmosdr_source_0, 0), (self.qtgui_sink_x_1, 0))
+        self.connect((self.rational_resampler_xxx_1, 0), (self.analog_wfm_rcv_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "fmRX")
