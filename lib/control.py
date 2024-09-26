@@ -1,5 +1,8 @@
+import fcntl
+import os
+import subprocess
+import time
 from shlex import split
-import fcntl, subprocess, time
 
 class Control(object):
 
@@ -14,17 +17,20 @@ class Control(object):
         try:
             proc.hide()
             proc.stop()
-        except:
-            pass
+        except Exception as E:
+            print(E)
+
         s1 = subprocess.Popen(split('lsusb'), stdout = subprocess.PIPE)
         s2 = subprocess.Popen(split('grep OpenMoko'), stdin = s1.stdout, stdout = subprocess.PIPE)
         oPut = s2.communicate()[0].split()
         bus = oPut[1].decode()
         dev = oPut[3].decode().split(':')[0]
-        hackRF = '/dev/bus/usb/{0}/{1}'.format(bus, dev)
-        USBDEVFS_RESET = ord('U') << (4*2) | 20
-        with open(hackRF, 'w') as kOption:
-            fcntl.ioctl(kOption, USBDEVFS_RESET, 0)
+        # hackRF = '/dev/bus/usb/{0}/{1}'.format(bus, dev)
+        hackRF = '{0}/{1}'.format(bus, dev)
+        os.system(f'bash ./bind.sh {hackRF}')
+        # USBDEVFS_RESET = ord('U') << (4*2) | 20
+        # with open(hackRF, 'w') as kOption:
+        #     fcntl.ioctl(kOption, USBDEVFS_RESET, 0)
 
 
     def startTX(self):

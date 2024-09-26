@@ -7,6 +7,7 @@
 # GNU Radio Python Flow Graph
 # Title: Fmrx
 # GNU Radio version: 3.10.1.1
+import time
 
 from packaging.version import Version as StrictVersion
 
@@ -211,6 +212,7 @@ class fmRX(gr.top_block, Qt.QWidget):
 
     def set_swap__(self, swap__):
         self.ctl.kill(self)
+        time.sleep(2)
         self.ctl.startTX()
         self.swap__ = swap__
 
