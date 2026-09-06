@@ -23,6 +23,12 @@ To Do List:
 
 How to use:
 ---
-* git clone https://github.com/stryngs/hrt.git && cd hrt && python ./hrt
-  * Yes, that simple!
-* The menu is fairly self-explanatory
+* `gcc usbreset.c -o usbreset`
+* `sudo apt install libasound2-plugins pipewire-alsa`
+* `git clone https://github.com/stryngs/hrt.git && cd hrt && python3 ./hrt`
+
+Flowgraph development:
+---
+* Generate `fmRX.py` and `fmTX.py` from GNU Radio Companion into `flowgraphs/`.
+* `lib/fmRX.py` and `lib/fmTX.py` are stable hrt wrappers around those generated files.
+
