@@ -19,20 +19,19 @@ from lib import control, fmRX, fmTX
 
 def choose(choice):
     """Actions taken by user input"""
-    global initLaunch
     global PROC
 
-    if (choice == '1' or choice == '2') and initLaunch == 1:
-        ctl.kill(PROC)
-    if initLaunch == 0 and (choice == '1' or choice == '2'):
-        initLaunch = 1
-
     if choice == '1':
+        if ctl.current is not None:
+            ctl.kill()
         PROC = ctl.startTX()
     elif choice == '2':
+        if ctl.current is not None:
+            ctl.kill()
         PROC = ctl.startRX()
     elif choice == '3':
-        ctl.kill(PROC)
+        ctl.kill()
+        PROC = None
 
 
 def menu():
@@ -55,7 +54,6 @@ if __name__ == '__main__':
     qapp = Qt.QApplication(sys.argv)
 
     ## Keep track of user actions
-    initLaunch = 0
     PROC = ''
 
     ## Load our control module
@@ -65,7 +63,7 @@ if __name__ == '__main__':
     while True:
         uChoice = input(menu())
         if uChoice == '4':
-            ctl.kill(PROC)
+            ctl.kill()
             break
             sys.exit(0)
         else:
